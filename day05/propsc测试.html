@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 这个是绑定属性 -->
+        <one_lay :num="num" :testobj="testobj" :testnum="50" ></one_lay>
+    </div>
+</body>
+
+</html>
+<script>
+    //html对大小写不敏感,所以属性绑定要,指令,过滤器之类的推介写小写
+    new Vue({
+        el:"#app",
+        data:{
+            num:"3",
+            testobj:{name:'飞猪',sex:0}
+        },
+        methods: {
+            
+        },
+        components:{
+            "one_lay":{
+                template:`
+                    <div>
+                        {{msg}}
+                        {{testobj.name+testobj.sex}}
+                    </div>
+                `,
+                props:{
+                    //  1.单类型限制,这里是设置为只能是数值类型 num:Number,
+                   
+                    //2.多类型限制,可以是数值,也可以是字符串类型
+                    num:[Number,String],
+                    //msg是默认类型,默认类型是mine
+                    msg:{
+                        type:String,
+                        default:"mine"
+                    },
+                    //指定默认对象
+                    testobj:{
+                        type:Object,
+                        default(){
+                            var info={
+                                name:"张天",
+                                sex:1
+                            }
+                            return info
+                        }
+                    },
+                    //属性验证,设置条件
+                    testnum:{
+                        //validator 验证器
+                        validator(value){
+                            console.log(value);
+                            return value<=50
+                        }
+                    }
+                }
+            }
+        }
+    })
+</script>

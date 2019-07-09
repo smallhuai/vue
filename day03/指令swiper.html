@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <script src="./js/swiper.min.js"></script>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="bool" v-swiper="imgList"></div>
+        <div v-if="bool" v-swiper="imgList1"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    Vue.directive("swiper", function (el, binding, vnode) {
+        let str = ""; 
+        binding.value.forEach((item) => {
+            str += ` <div class="swiper-slide" v-for="item in imgList"> <img src="${item}" alt=""> </div>`
+        })
+        let swiperNode = `
+            <div class="swiper-container" style="height:160px">
+            <div class="swiper-wrapper">
+                ${str}
+            </div>
+            </div>
+            `;
+        el.innerHTML=swiperNode;
+        // 数据渲染到页面是异步,页面渲染需要时间,所以要利用异步编程来解决问题,setTimeout是属于异步编程,
+        // setTimeout(() => {
+            // new Swiper ('.swiper-container', {
+            //     autoplay:1000
+            // })
+        // }, 2000);
+        //   vnode.context.$nextTick(()=>{})是等视图数据渲染完之后再执行,解决数据异步过程拿不到的问题
+        vnode.context.$nextTick(()=>{
+            new Swiper ('.swiper-container', {
+                autoplay:1000
+            })
+        })
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            imgList: [],
+            imgList1:[],
+            bool: false
+        },
+        // 数据初始化,被created 
+        //数据渲染,视图数据渲染是属于异步,所以要获取到数据的话,要等同步走完之后才能获取到数据
+        mounted() {
+            setTimeout(() => {
+                this.imgList = ["./img/4.jpg", "./img/5.jpg", "./img/6.jpg"];
+                this.imgList1 = ["./img/1.jpg", "./img/2.jpg", "./img/3.jpg"];
+                // 异步加载开关
+                this.bool= true;
+            }, 1000)
+        },
+        methods: {
+
+        },
+    })
+</script>

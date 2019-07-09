@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        ul>li{
+            float: left;
+            list-style: none;
+
+        }
+        .bg{
+            background: red;
+        }
+        .active{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in list" >
+                <button @click="setClo(index)" :class="{bg:active==index}">{{item}}</button>
+                <!-- bg:active==index  此处的active==index是代表布尔类型,true或者false -->
+            </li>
+            <!-- active==0 是代表true的时候是显示,代表false的时候隐藏 -->
+            <div v-show="active==0">num1</div>
+            <div v-show="active==1">num2</div>
+            <div v-show="active==2">num3</div>         
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            list:["num1","num2","num3"],
+            active:0
+        },
+        methods:{
+            setClo(index){
+                this.active=index;
+                console.log(this.active)               
+            }
+        }
+    })
+</script>

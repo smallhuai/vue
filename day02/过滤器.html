@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in list">
+                {{item.name |test2|setStr(4)}}
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    // Vue.filter("test1",(val)=>{
+    //     console.log(val);
+    //     //王建林 小哥  小仙女
+    //     return val   
+    // })
+    // val可以加""字符串后面加值
+    Vue.filter("test2",(val)=>{
+        if (val=="王建林") {
+            return val+"土豪";
+        }
+        return val;
+    })
+    // 设置允许字数,在超过字数之后就用三个点代替
+    Vue.filter("setStr",(val,num)=>{
+        var str="";
+        if (val.length>=num) {
+            str=val.slice(0,num)+"...";
+        }else{
+            return str=val;
+        }
+        return str;
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            list: [
+                { name: "王建林" },
+                { name: "小哥 洋洋" },
+                { name: "小仙女 溪花海" }
+            ]
+        },
+        methods: {
+            
+        },
+    })
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{"姓名:"+obj.name+"年龄:"+obj.age}}
+        <lay_one></lay_one>
+    </div>
+</body>
+</html>
+<script>
+    //注册组件$on的使用
+    var lay_one={
+        template:`
+            <div>
+                <h1></h1>
+                <button @click="first">测试</button>
+            </div>
+        `,
+        methods: {
+           first(){
+               //利用$emit触发
+               this.$parent.$emit("onefn",{name:"sunny",age:18})
+           } 
+        },
+    }
+    new Vue({
+        el:"#app",
+        data:{
+            obj:{}
+        },
+        mounted() {
+            //组件初始化的时候注册事件
+            this.$on("onefn",(res)=>{
+                alert("123")
+                //把子组件的数据赋值给父组件中的属性
+               this.obj=res;              
+            })
+        },
+        components:{
+            lay_one
+        }
+    })
+</script>

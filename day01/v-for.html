@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!--v-for="(item,index) in list" item是取得数组list中的一个对象,item.name,就是取得对象中的值,index就是list数数组里面元素的下标  -->
+            <li v-for="(item,index) in list">
+                {{index+item.name}}
+                <ul>
+                    <!-- 遍历list中每个对象中的数组的值 -->
+                    <li v-for="(num in item.arr">
+                        {{num}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- v-for遍历对象 可以取得对象的键和值以及下标 -->
+        <div v-for="(val,key,index) in info">
+            {{val+key+index}}
+        </div>
+        <ul>
+            <li v-for="(item ,index) in testList"  @dblclick="test2(item)">
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            list: [
+                { name: "小一", arr: [1, 2, 3, 4, 56, 7] },
+                { name: "小二", arr: [1, 2, 3, 4, 56, 7] },
+                { name: "小三", arr: [1, 2, 3, 4, 56, 7] }
+            ],
+            info: {
+                name: "唐僧",
+                sex: 1,
+                say: "爱取经"
+            },
+            testList: []
+        },
+        mounted() {
+            setTimeout(() => {
+                // this是new Vue的  所以就是this.testList,就是data中testList: []
+                this.testList = [
+                    { name: "猪猪侠" },
+                    { name: "村长" },
+                    { name: "棒棒糖" }
+                ]
+            }, 2000)
+        },
+        // 这个里面是定义方法的
+        methods: {
+            test(index){//controller js逻辑部分
+                alert(this.list[index].name)
+            },
+            test2(item){
+                console.log(item);   
+            }
+        },
+    })
+</script>

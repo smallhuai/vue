@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   <link rel="stylesheet" href="./css/animate.css">
+    <script src="./js/vue.js"></script>
+    <style>
+        .box{
+            height: 100px;
+            width: 100px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+            <!-- 多节点动画用transition-group 节点位置要加key,以便区分节点 -->
+        <transition-group enter-active-class="bounceOut" leave-active-class="fadeOutDown">
+            
+            <div v-show="bool" class="box animated" :key="1"></div>   
+            <div v-show="bool" class="box animated" :key="2"></div>  
+        </transition-group>
+        <button @click="bool=!bool">set</button>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            bool:true
+        }
+    })
+</script>

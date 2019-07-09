@@ -1,0 +1,27 @@
+module.exports={
+    entry:"./main.js",
+    output:{
+        path:__dirname+"/bundle",
+        filename:"bundle.js"
+    },
+    module:{
+        rules:[
+            //配置了css的相关loater,还有scss的相关loater
+          {
+                test:/\.css$/,       
+                use:[       
+                     {loader:"style-loader"}, 
+                     {loader:"css-loader"}    
+                ]
+        },
+        {
+            test:/\.scss$/,
+            use:[
+                {loader:"style-loader"},
+                {loader:"css-loader"},  
+                {loader: "sass-loader"} 
+            ]
+        } 
+        ]
+    }
+}

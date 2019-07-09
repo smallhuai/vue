@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in goodList" style="list-style: none">
+                <h2>{{item.name+":价格"+item.price}}</h2>
+                <button @click="add(index)">+</button>{{item.num}} <button @click="sub(index)">-</button>
+                小计:{{item.num*item.price|test("¥")}}
+            </li>
+        </ul>
+        <p>合计:{{allPrice|test("¥")}}</p>
+    </div>
+</body>
+
+</html>
+<script>
+    // 使用过滤器,保存俩位小数,val是allprice的值
+    Vue.filter("test",(val,mark)=>{
+        return mark+(val.toFixed(2))
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            goodList: [
+                {
+                    name: "苹果",
+                    price: 6,
+                    num: 0
+                },
+                {
+                    name: "西瓜",
+                    price: 3,
+                    num: 0
+                },
+                {
+                    name: "哈密瓜",
+                    price: 8,
+                    num: 0
+                }
+            ],
+            allPrice: 0
+        },
+        methods: {
+            add(index) {
+                this.goodList[index].num++;
+                this.totalPrice();
+            },
+            sub(index) {
+                this.goodList[index].num--;
+                // 当数量为为0的时候,就不能再往下减了
+                if (this.goodList[index].num<=0) {
+                    this.goodList[index].num=0;
+                }
+                // 注意这里要记得加this
+                this.totalPrice();
+            },
+            totalPrice() {
+                var allprice = 0;
+                this.goodList.map((item, index) => {
+                    allprice += item.num * item.price
+                })
+                this.allPrice = allprice;
+            }
+        }
+    })
+</script>

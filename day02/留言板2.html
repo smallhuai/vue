@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            name: <input type="text" v-model="uname">
+            say: <input type="text" v-model="usay">
+            <button @click="send">send</button>
+            <button @click="del">删除</button>
+            <button @click="delAll">全删</button>
+            <li v-for="(item,index) in LEavMsg">
+                <h1>{{item.name}}</h1>
+                <p>{{item.say}}</p>
+                <input type="checkbox" v-model="item.bool">
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            LEavMsg: [
+                { name: "cc", say: "aziman你这么又没一点力气哦", bool: false },
+                { name: "呆瓜", say: "道士哥哥,给你吃棒棒糖", bool: false },
+                { name: "涂山红红", say: "二货道士", bool: false }
+            ],
+            uname: "",
+            usay: ""
+        },
+        methods: {
+             // 把用户的名字和说的内容保存为对象,再放入数组中,遍历数组展示在页面
+            send() {              
+                let tmpObj = {};
+                tmpObj.name = this.uname;
+                tmpObj.say = this.usay;
+                bool: false;
+                this.LEavMsg.push(tmpObj);
+                this.uname = "";
+                this.usay = "";
+            },
+            // 删除的时候,把bool为false的保存到数组中,把bool为ture的删除
+            del() {
+                let arr=[];
+                this.LEavMsg.map((item,index)=>{
+                    if (!item.bool) {
+                        arr.push(item)                 
+                    }
+                })
+                this.LEavMsg=arr;
+            },
+            // 删除所有就是清空数据中的数据
+            delAll() {
+                this.LEavMsg = []
+            }
+        },
+    })
+</script>

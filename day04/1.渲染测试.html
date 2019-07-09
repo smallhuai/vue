@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <div>
+           {{msg}}
+       </div>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            msg:""
+        },
+        created() {
+            console.log("0k"); 
+            //在数据初始化的时候,在mouted中渲染完毕了,所以不管视图有没有用到,都可以打印ok   
+        },
+        mounted() {
+            this.msg="hahah";    
+        },
+        updated() {           
+            console.log("0k");//如果修改的数据,在视图中没有用到,就不会更新,打印什么都没有,如果在视图中用到了msg,就会打印ok,   
+        },
+        methods: {
+            
+        },
+    })
+</script>

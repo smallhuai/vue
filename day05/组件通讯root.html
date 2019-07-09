@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+       {{name+":"+say}}
+       <lay_one></lay_one>
+       <lay_two></lay_two>
+   </div> 
+</body>
+</html>
+<script>
+    var lay_one={
+        template:`
+            <div>
+                <h1></h1>
+                <button @click="first">root</button>
+            </div>
+        `,
+        methods: {
+            first(){
+                this.$root.$emit("onefn","淮竹,竹亭水岸")
+            }
+        },
+    }
+    var lay_two={
+        template:`
+            <div>
+                <h1></h1>
+                <button @click="secod">root2</button>
+            </div>
+        `,
+        methods: {
+            secod(){
+                this.$root.$emit("onefn","因为世界上已经鲜有人是他的对手")
+            }
+        },
+    }
+    //全局作用域$root 要配合$on和$emit一起使用
+    new Vue({
+        el:"#app",
+        data:{
+            name:"王权霸业",
+            say:"",
+        },
+        mounted() {
+            this.$root.$on("onefn",(res)=>{
+                this.say=res;
+                alert("怀着剑心来见你")
+            })
+        },
+        components:{
+            lay_one ,
+            lay_two
+
+        }
+    })
+</script>

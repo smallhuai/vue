@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 父组价向子组件传参数 调用组件lay_test 子组件lay_test中定义属性和方法来接收父组件的属性和方法,msg属性和test方法, -->
+        <lay_test :msg="msg" @ceshi="test"></lay_test>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "耶耶"
+        },
+        mounted() {
+            this.msg = "猪猪女孩";
+        },
+        methods: {
+            //res是去接收子元素方法中触发的结果
+            test(res) {  
+                alert("天下")          
+                console.log(res);               
+            }
+        },
+        components: {
+            "lay_test": {
+                template: `
+                <div>
+                    <h1 style="color:pink">{{msg}}</h1>
+                    <button  @click="run">test</button>
+                </div>        
+                `,
+                data() {
+                    return {
+                        name:"哈哈哈"
+                    }
+                },
+                // 子组件接收父组件传入的参数
+                props:["msg","@ceshi"],              
+                methods: {
+                    run(){
+                        //触发父元素的特定的方法
+                        this.$emit("ceshi",{name:"猪猪侠"})  
+                    }
+                },
+            }
+        }
+    })
+</script>

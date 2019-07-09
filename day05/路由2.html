@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 头部开始 -->
+        <template id="nav">
+            <router-link to="/">主页</router-link>
+            <router-link to="/news">新闻页</router-link>
+            <router-link to="/test">测试页</router-link>
+        </template>
+        <router-view></router-view>
+        <lay_footer></lay_footer>
+    </div>
+</body>
+
+</html>
+<script>
+  //  设置组件
+    const lay_header = {
+        template: `
+            <div>
+                我是头部
+                
+            </div>
+        `
+    };
+    // --------切换部分
+    const info = {
+        template: `
+            <div>
+                我是信息页
+            </div>
+        `
+    };
+    const news = {
+        template: `
+            <div>
+               <p>我是新闻页</p>
+                <router-link to="/news/nationnew">国内新闻</router-link>
+                <router-link to="/news/iternationnew">国际新闻</router-link>
+               <router-view></router-view>
+            </div>
+        `
+    };
+    const test = {
+        template: `
+            <div>
+                我是测试页
+                
+            </div>
+        `
+    };
+    const nationnew = {
+        template: `
+            <div>
+                我是国内新闻
+            </div>
+        `
+    }
+    const iternationnew = {
+        template: `
+            <div>
+                我是国际新闻
+            </div>
+        `
+    }
+    const err = {
+        template: `
+            <div>
+             404
+            </div>
+        `
+    };
+    //=-------切换部分结束
+    const lay_footer = {
+        template: `
+            <div>
+                我是尾部
+            </div>
+        `
+    }
+    //配置路由
+    const router = new VueRouter({
+        routes: [
+            {
+                path: "/",
+                component: info
+            },
+            {
+                path: "/news",
+                component: news,
+                children: [
+                    // 子路由底下的路径不用加/在配路径的时候
+                    { path: "nationnew", component: nationnew },
+                    { path: "iternationnew", component: iternationnew }
+                ]
+            },
+            {
+                path: "/test",
+                component: test
+            },
+            {
+                path: "*",
+                component: err
+            }
+        ]
+    })
+    new Vue({
+        el: "#app",
+        router,
+        data: {
+
+        },
+        components: {
+            lay_header: "#nav",
+            lay_footer,
+        }
+    })
+</script>

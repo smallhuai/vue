@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/swiper.css">
+    <script src="./js/swiper.js"></script>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="item in imgList">
+                    <img :src="item" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            imgList: []
+        },
+        //data初始化创建 
+        //视图数据渲染开始,渲染是一个异步的过程,要获取数据,要等数据渲染完之后才能获取渲染的数据,可以使用实例底下的属性.$nextTick(()=>{})视图节点渲染完完毕回调,就可以获取到渲染之后的数据
+        mounted() {
+            this.imgList = ["./img/4.jpg", "./img/5.jpg", "./img/6.jpg"]  
+            //视图渲染完毕之后才会得到数据
+            this.$nextTick(()=>{
+                this.mySwiperInt();
+            })
+        },
+        updated() {
+           
+        },
+        methods: {
+            mySwiperInt(){
+                new Swiper('.swiper-container',{
+                    autoplay:1000
+                })
+            }
+        },
+    })
+</script>

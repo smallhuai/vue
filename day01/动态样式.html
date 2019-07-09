@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .box1{
+            background-color: red;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+        }
+        .col{
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 传入数组[已有class类名] 注意数据类型 -->
+        <div :class="classList">猪猪</div>
+        <!-- 类名:布尔值,类名:布尔值 -->
+        <div :class="{box1:true,col:false}" >侠客</div>
+        <div :style="setStyle">村长</div>
+        <!-- 事件绑定是用在methods上 -->
+        <button @click="myStyle">set</button>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            classList:["box1","col"],
+            bool1:true,
+            bool2:false,
+            setStyle:{
+                height:"100px",
+                width:"100px",
+                background:"pink"
+            }
+        },
+        methods: {
+            myStyle(){
+                //this是new Vue指向,也就是new Vue中data的setStyle.background
+                this.setStyle.background="yellow";
+            }
+        },
+    })
+</script>

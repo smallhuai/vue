@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <lay_head></lay_head>
+    </div>
+</body>
+
+</html>
+<script>
+    //组件.components  组件化
+    //组件有独立的css独立租用域,js独立命名空间
+    //全局组件(可以在任何子组件里面使用而不需要引入)
+    //import Hedaer from "./componets/header.vue"
+    Vue.component("lay_head", {//子组价
+        template: `
+            <div>
+                <h1>
+                    {{msg}}
+                </h1>
+                <button @click="test"> test </button>
+            </div>
+        `,
+        data() {
+            return {
+                msg: "哈哈"
+            }
+        },
+        methods() {
+            console.log("ok")
+        },
+        methods: {
+            test() {
+                alert("猪猪")
+            }
+        }
+    })
+  new Vue({//根组件
+        el: "#app",
+        data: {
+            msg: "hellow"
+        },
+    })
+    
+</script>

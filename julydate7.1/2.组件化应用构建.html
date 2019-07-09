@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ foo }}</p>
+        <!-- 这里的 `foo` 不会更新！ -->
+        <button v-on:click="foo = 'baz'">Change it</button>
+    </div>
+</body>
+<script>
+    var obj = {
+        foo: 'bar'
+    }
+
+    Object.freeze(obj)
+
+    new Vue({
+        el: '#app',
+        data: obj
+    })
+</script>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <script src="./js/swiper.min.js"></script>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="bool" v-swiper="imgList"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    Vue.directive("swiper", {
+        // bind:function (el,binding,vnode) {
+
+        //     // console.log(binding.value); 
+        // },
+        inserted: function (el, binding, vnode) {
+            console.log(binding);
+            
+            // 插入执行一次 使用insert来实现轮播的话,要考虑异步的问题,虚拟dom被插入视图中,变成了实际的元素,就可以正常操作
+            let str = "";
+            binding.value.forEach((item, index) => {
+                str += `<div  class="swiper-slide" v-for="item in imgList"> <img src="${item}" alt=""> </div>`
+            })
+            let swiperNode = `
+            <div class="swiper-container" style="height:160px">
+            <div class="swiper-wrapper"> ${str} </div> </div>`;
+           console.log(swiperNode);
+           el.innerHTML = swiperNode;
+            // console.log(swiperNode);
+            new Swiper('.swiper-container', {
+                autoplay: 1000
+            })
+            //数据渲染到页面也是异步,在update中被推动的数据
+        },
+        // update:function(el,binding,vnode) {
+        //     let str="";
+        //     binding.value.forEach((item,index)=>{
+        //         str+=`<div class="swiper-slide" v-for="item in imgList"> <img src="${item}" alt=""> </div>` 
+        //     })
+        //     let swiperNode=`
+        //     <div class="swiper-container" style="height:160px">
+        //     <div class="swiper-wrapper"> ${str} </div> </div>`;
+        //     el.innerHTML=swiperNode; 
+        //     //数据渲染到页面也是异步,在update中updata是被动执行
+        //     new Swiper ('.swiper-container', {
+        //         autoplay:1000
+        //     })
+        // },
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            imgList: [],
+            bool: false
+        },
+        mounted() {
+            setTimeout(() => {
+                this.imgList = ["./img/4.jpg", "./img/5.jpg", "./img/6.jpg"];
+                new Swiper ('.swiper-container', {
+                autoplay:1000
+            }) 
+            this.bool = true;  
+            }, 1000);
+        },
+        methods: {
+
+        },
+    })
+</script>

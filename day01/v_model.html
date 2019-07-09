@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        数量: <input type="number" v-model="num">
+        <hr>
+        价格:{{num*price}}
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            name:"苹果",
+            price:6,
+            num:0,
+            testStr:""
+        },
+        methods: {
+            
+        },
+    })
+</script>

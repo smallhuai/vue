@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <template id="nav">
+            <router-link to="/">主页</router-link>
+            <router-link to="/news">新闻页</router-link>
+            <router-link to="/test">测试页</router-link>            
+        </template>
+        <router-view></router-view>
+        <lay_footer></lay_footer>
+    </div>
+</body>
+</html>
+<script>
+    //1.开始写组件
+  
+    // -----------------切换页面部分
+    const lay_info={
+        template:`
+            <div>
+                <h2>我是信息页</h2>   
+                </hr> 
+            </div>
+        `
+    } ;
+    const lay_news={
+        template:`
+            <div>
+                <h2>我是新闻页</h2>   
+                </hr> 
+            </div>
+        `
+    } ;
+    const lay_test={
+        template:`
+            <div>
+                <h2>我是测试页</h2>   
+                </hr> 
+            </div>
+        `
+    } ;
+    const lay_err={
+        template:`
+            <div>
+                <h2>404找不到您的网页</h2>   
+                </hr> 
+            </div>
+        `
+    } ;
+
+     // -----------------切换页面部分结束
+    const lay_footer={
+        template:`
+            <div>
+                <h2>我是尾部</h2>   
+                </hr> 
+            </div>
+        `
+    } ;
+    //2.配置路由router是固定写法,到时要到到组件中去配置option
+   var router=new VueRouter({
+       //这个也是固定写法
+       routes:[
+           {
+               //配置路径
+               path:"/",
+               component:lay_info
+           },
+           {
+               path:"/news",
+               component:lay_news
+           },
+           {
+               path:"/test",
+               component:lay_test
+           },
+           {
+               path:"*",
+               component:lay_err
+           }
+       ]
+   })
+   //在视图上写路由内置组件 router-view 控制 切换  页面在哪里显示
+   new Vue({
+        el:"#app",
+        router,
+        components:{
+            lay_header:"#nav",
+            lay_footer,
+        }
+   })
+</script>

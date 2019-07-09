@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="uname">
+        <input type="text" v-model="usay">
+        <button @click="send">send</button>
+        <button @click="del">删除</button>
+        <button @click="delAll">全删</button>
+        <ul>
+            <li v-for="(item,index) in dataList">
+                <h1>{{item.name}}</h1>
+                <p>{{item.say}}</p>
+                <input type="checkbox" v-model="item.bool">
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            uname: "",
+            usay: "",
+            dataList: []
+        },
+        methods: {
+            send() {
+                // 利用一个变量去接收一个对象
+                let tmpObj = { name: this.uname, say: this.usay, bool: false }
+                // 把所得到的数据push到dataList中
+                this.dataList.push(tmpObj);
+                this.uname = "";
+                this.usay = "";
+            },
+            del() {
+                // 利用一个空的数组去接收不删除的对象,再把剩下的arr赋值给dataList,就会保存不删除的值.删除要删除的值
+                let arr = [];
+                // 遍历dataList中的数据,如果bool值为false的话就把不删除的值放入数组中
+                this.dataList.map((item) => {
+                    if (!item.bool) {
+                        arr.push(item);
+                    }
+                })
+                // 把剩下不删除的数组赋值给dataList,就会删除了bool值为true的值
+                this.dataList = arr;
+                console.log(this.dataList);
+            },
+            delAll() {
+                this.dataList = [];
+            }
+        },
+
+    })
+</script>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <a :href="url" :title="'跳转百度'">百度</a>
+        <button v-on:click="show1">点击1</button>
+        <!-- show2('哈哈',$event)" 这个里面表示传入实参 -->
+        <button @click="show2('哈哈',$event)">点击2</button>
+        <hr>
+        <div @click="test1">
+            <!-- @click.stop是阻止冒泡 冒泡是从内往外,所以只会触发test2的弹框 -->
+            <div @click.stop="test2">点我</div>
+        </div>
+        <form action="" @click="test1">
+            <input type="text">
+            <!-- 阻止默认事件  @click..prevent   @click..prevent.stop 是既阻止冒泡,又阻止默认行为-->
+            <button @click..prevent.stop="test2">点一下</button>
+        </form>
+        <!-- 键盘事件 -->
+        <input type="text" @keydown="keyTest">
+        <!-- 就只能按q键才会有打印 -->
+        <input type="text" @keydown.q="keyTest">
+    </div>
+
+</body>
+
+</html>
+<script>
+    // 自定义键位
+     Vue.config.keyCodes.q=81;
+    new Vue({
+        el:"#app",
+        data:{
+            url:"http://www.baidu.com",
+        },
+        methods: {
+            show1(e){
+                console.log(e)               
+            },
+            show2(msg,e){
+               console.log(e);
+               console.log(msg);     
+            },
+            test1(){
+                alert("test1")
+            },
+            test2(){
+                alert("test2")
+            },
+            keyTest(e){
+                console.log(e.keyCode); 
+            }
+        },
+    })
+</script>

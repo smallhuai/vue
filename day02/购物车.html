@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        button{
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in goodList">
+                <h1>
+                    {{item.name+ "  单价:"+item.price}}
+                </h1>
+                <button @click="add(index)">+</button>
+                {{item.num}}
+                <button @click="sub(index)">-</button>
+                <span>小计:{{item.price*item.num|test("¥")}}</span> 
+            </li>
+            <p>合计:{{allPrice|test("¥") }}</p>
+        </ul>
+
+    </div>
+</body>
+
+</html>
+<script>
+    Vue.filter("test",(val,mark)=>{
+        // 使用toFixed的时候,必须是数值,不能是字符串
+        return mark+(val.toFixed(2));
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            goodList: [
+                { name: "苹果", price: 6, num: 0 },
+                { name: "荔枝", price: 10, num: 0 },
+                { name: "火龙果", price: 7, num: 0 },
+                { name: "橘子", price: 2, num: 0 }
+            ],
+            allPrice:0
+        },
+        methods: {
+            add(index){
+                this.goodList[index].num++;
+                this.totalprice();
+            },
+            sub(index){
+                if (this.goodList[index].num<=0) {
+                    this.goodList[index].num=1;
+                }
+                this.goodList[index].num--;
+                this.totalprice();
+            },
+            totalprice(){
+                var allPrice=0
+                //取得goodList中的数量和单价,就要通过遍历获取
+                this.goodList.map((item,index)=>{          
+                    allPrice+=item.price*item.num      
+                })
+                this.allPrice=allPrice     
+            }
+        }
+    })
+</script>

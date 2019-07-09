@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{obj}}
+        <lay_one :msg="msg" @onefn="onefn"></lay_one>
+    </div>
+</body>
+
+</html>
+<script>
+    var lay_one = {
+        template: `
+            <div>
+                <h1>{{msg}}</h1>
+                <button @click="onerun">点一点</button>
+            </div>
+        `,
+        props: ["msg", "two"],
+        methods: {
+            onerun() {
+                /* 第一种父子组件之间的传值
+                  <lay_one :msg="msg" @onefn="onefn"></lay_one> 
+                   this.$emit("onefn",{name:"猪猪猪猪"});
+                   this.obj = res 父组件获取到子lay_two组件中 中传入的数据 */
+                //第二种传值的方式,利用$.on("事件名",()=>{})
+                this.$emit("onefn", {
+                    name: "猪猪猪猪"
+                })
+            }
+        },
+    }
+
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "魔法",
+            obj: ""
+        },
+        methods: {
+            onefn(res) {
+                this.obj = res;
+                console.log(this.obj);
+            }
+        },
+        components: {
+            //es6键和值一致的时候,可以用结构解析赋值,只写一个
+            //lay_one相当于lay_one:lay_one
+            lay_one,
+        }
+    })
+</script>

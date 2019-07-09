@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表达式</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- {{}}这个是表达式 其中msg是变量 -->
+        {{msg}}
+        <!-- hellow world -->
+        {{111+1+msg}}
+        <!-- 112hellow world -->
+        <hr>
+        {{bool?"你是最亮的崽崽":"你是猪"}}
+        <!-- 你是最亮的崽崽 -->
+        <hr>
+        {{"最亮的崽崽".indexOf("崽崽")}}
+        <!-- 3 -->
+        <hr>
+        {{[1,2,4,5].splice(0,2)}}
+        <!-- [1,2] 删除返回被的值-->
+        <hr>
+        {{"你是最亮的崽崽".indexOf("哈哈")!=-1?"最亮的崽":"最宠的猪"}}
+        <!-- false 所以是 最宠的猪-->
+        <!-- 注意vue中的表达式中不要写过多的逻辑 -->
+    </div>
+</body>
+</html>
+<script>
+    // {{msg}}是vue中表达式
+    //表达式中要注意数据类型
+    //表达式可以使用运算符合逻辑运算符
+    new Vue({
+        el:"#app",
+        data:{//这个是model
+            msg:"hellow world",
+            bool:true
+        }
+    })
+</script>

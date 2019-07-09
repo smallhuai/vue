@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 修饰符号 在指令后面打. -->
+        <!-- lazy失焦显示 -->
+        <input type="text" v-model.lazy="str1">{{str1}}
+        <hr>
+        <!--v-model.number强制转化成number类型  -->
+        <input type="text" v-model.number="str2">{{typeof str2}};
+        <hr>
+        <input type="text" v-model.trim="str3">左{{str3}}右
+        <input type="radio" value="男" v-model="sex">
+        <input type="radio" value="女" v-model="sex">{{sex}}
+        <!-- 显示一个数组,可以动态的判断长度 -->
+        <input type="checkbox" value="小何" v-model="nameList">
+        <input type="checkbox" value="小王" v-model="nameList">  <input type="checkbox" value="小李" v-model="nameList">{{nameList}}
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            str1: "",
+            str2: "",
+            str3:"",
+            sex:"",
+            nameList:["小何"]
+        },
+    })
+</script>

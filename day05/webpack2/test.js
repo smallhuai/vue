@@ -1,0 +1,1 @@
+module.exports="我爱我家"

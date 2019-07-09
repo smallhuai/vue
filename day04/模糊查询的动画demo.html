@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/animate.css">
+    <script src="./js/vue.js"></script>
+    <style>
+        li {
+            list-style: none;
+            height: 50px;
+            width: 100px;
+            line-height: 50px;
+            text-align: center;
+            margin-top: 10px;
+            background: #e3e3ee;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 多节点动画用transition-group 节点位置要加key,以便区分节点 -->
+        <input type="text" v-model="name">
+        <transition-group enter-active-class="bounceOut" leave-active-class="fadeOutDown">
+            <li class="animated" v-for="(item,index) in List" :key="index">
+                {{item}}
+            </li>
+        </transition-group>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            nameList: ["周瑜", "曹操", "江河", "项羽", "虞姬", "周后"],
+            bool: true,
+            name: "",
+        },
+        //属性计算都用computed
+        computed: {
+            List() {
+                let arr = [];
+                this.nameList.map((item) => {
+                    // 注意一个值indexof("")=0;只要是indexOf("")值就是一个0;
+                    if (item.indexOf(this.name) != -1) {
+                        arr.push(item)
+                    }
+                })
+                console.log(arr);
+
+                return arr;
+
+            }
+        },
+    })
+</script>

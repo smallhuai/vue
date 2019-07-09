@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="demo">{{ fullName }}</div>
+</body>
+
+</html>
+<script>
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        computed: {
+            fullName: function () {
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+    })
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <button @click="test">test</button>
+    </div>
+</body>
+
+</html>
+<script>
+    //watch初始化的时候,不会被执行,监听是监听传递类型的值,或者引用类型的值的变化,一般是用来监听异步,watch是一个数据,影响多个
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "光头强",
+            info: {}
+        },
+        mounted() {
+           setTimeout(() => {
+            this.$set(this.info, "name", "蝌蚪");
+           }, 1000);
+        },
+        methods: {
+            test() {
+                this.msg = "熊大";
+                //this.info.name="蝌蚪" //由于受到js的限制,vue不能监听到对象的删除和修改,所以要用$set来jiejue      
+            }
+        },
+        watch: {
+            //要监听的变量名
+            msg(newVal,old) {
+                console.log("msg发生了改变");
+                //newVal,old 是形参,表示获得修改后的值,和之前的值
+                console.log(newVal,old);
+            },
+            // 引用类型监听的固定写法
+            info:{
+                handler(newVal,old){
+                    console.log("info发生了改变");
+                    console.log(newVal);
+                },
+                // 深监听
+                deep:true                  
+            }
+
+        },
+    })
+</script>

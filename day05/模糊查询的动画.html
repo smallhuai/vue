@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/animate.css">
+    <script src="./js/vue.js"></script>
+    <style>
+        li {
+            list-style: none;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            margin-top: 10px;
+            background-color: #e0e3e0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="name">
+        <ul>
+            <transition-group enter-active-class="bounceOut" leave-active-class="fadeOutDown">
+                <li v-for="(item,index) in List" class="animated" :key="index">
+                    {{item}}
+                </li>
+            </transition-group>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            nameList: ["黛玉", "晴雯", "宝钗", "宝玉", "袭人", "射月"],
+            name: ""
+        },
+        computed: {
+            List() {
+                let arr = [];
+                this.nameList.map((item) => {
+                    if (item.indexOf(this.name) != -1) {
+                        arr.push(item);
+                    }
+                })
+                return arr;
+            }
+        },
+    })
+</script>

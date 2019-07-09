@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <hr>
+
+        <!-- 相当于jquery中.html() -->
+        <h1 v-html="temp"></h1>
+        <!-- 哈哈-->
+        <h1 v-text="msg+'156'"></h1>
+        <!-- hellow word156 -->
+        <!-- v-html="temp"双引号之间也要注意数据类型 -->
+        <!-- v-show="布尔值" true显示,false是隐藏 这个是的隐藏是给元素添加了一个dispaly:none,频繁操作的适用这个,如tab切换 -->
+        <!-- v-if="布尔值",true表示显示,false表示隐藏,但是这个的隐藏是删除了元素,适合用于数据的一次性渲染 -->
+        <div v-show="false" style="width: 200px;height:200px;background:cadetblue"></div>
+        <div v-if="true" style="width: 200px;height:200px;background:blue"></div>
+        <!-- v-if的组合必须连在一起使用 -->
+        <div v-if="text=='下雨'">带伞呀</div>
+        <div v-else-if="text=='天晴'">带太阳伞呀</div>
+        <div v-else>爱咋滴咋地</div>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+           msg:"hellow word",
+           temp:"<h1>哈哈</h1>",
+           text:"下雨" 
+        }
+    })
+</script>

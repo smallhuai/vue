@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <lay_test :masgg="msg" @test="test"></lay_test>
+    </div>
+</body>
+</html>
+<script>
+    Vue.component("lay_test",{
+        template:`
+            <div>
+                <h1>{{masgg}}</h1>
+                <button @click="run">test</button>
+            </div>
+        `,
+        props:["masgg","test"],
+        methods: {
+           run(){
+                this.$emit("test",{say:"你只猪,猪猪猪,"})
+           } 
+        },
+        data() {
+            return {
+                // msg:"猪猪"
+            }
+        },
+    })
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"猪猪侠"
+        },
+        mounted() {
+            this.msg="猪猪女孩"
+        },
+        methods:{
+            test(){
+                alert("无敌")
+            }
+        }
+    })
+</script>

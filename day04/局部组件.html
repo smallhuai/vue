@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <lay_header></lay_header>
+        <lay_mian></lay_mian>
+    </div>
+</body>
+
+</html>
+<script>
+    // Vue.component("组件名",{})
+    Vue.component("lay_header", {
+        // template是拼接页面上的结构,用es6的字符串模板
+        template: `
+            <div>
+                <h1>{{msg}}</h1>
+                <button @click="test">test</button>
+            </div>
+        `,
+        data() {
+            return {
+                msg: "耶"
+            }
+        },
+        mounted() {
+            console.log("ok")
+        },
+        methods: {
+            test() {
+                alert("大蠢猪")
+            }
+        }
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "hah"
+        },
+        methods: {
+
+        },
+        // 局部组件,只能在当前的vue实例中可以用,可以用多个局部组件
+        components:{
+            "lay_mian":{
+                template:`
+                    <div>
+                        我是mian的部分
+                    </div>
+                `
+            }
+        }
+    })
+</script>

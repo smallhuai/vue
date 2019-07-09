@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h1>{{name+":价格"+price}}</h1>
+            数量:
+            <button @click="sub">-</button>
+            <span>{{num}}</span>
+            <button @click="add">+</button>
+            <!-- 这个是computed属性计算中的函数totalPrice,在应用的时候,就直接将函数当前变量一样的使用,修改一个无关的值,不会触发computed中的函数执行,因为computed读取的是缓存,是当data中num的变化,computed中用了这个可以的变量,所以totalPrice会跟着变化 多个数据影响一个数据-->
+            <span>总价:{{totalPrice}}</span>
+            <!-- 测试test的时候,不会让computed的函数执行 -->
+            <button @click="test">test</button>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            name: "苹果",
+            price: 8,
+            num: 0,
+            allPice: 0
+        },
+        computed: {
+            //computed的计算
+            totalPrice() {
+                let allPice = this.price * this.num;
+                console.log("ok");
+                return allPice;
+            }
+        },
+        mounted() {
+
+        },
+        methods: {
+            add() {
+                this.num++;
+            },
+            sub() {
+                this.num--;
+            },
+            test() {
+                this.name = "西瓜"
+            }
+        },
+    })
+</script>

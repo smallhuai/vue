@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div ref="aaa">{{msg}}</div>
+        <button @click="test">test</button>
+    </div>
+</body>
+
+</html>
+<script>
+    // 从开始到结束的过程,有一个生命周期在控制
+    //每一个生命生命周期都有一个钩子函数,钩子函数会自动执行
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "hellow"
+        },
+        beforeCreate() {
+            // vue实例,初始化之前
+            console.log(this.$el); //undefined
+            console.log(this.$data); //undefined  
+        },
+        created() {
+            //c初始化完成为渲染视图
+            console.log("初始化的时候");
+
+            console.log(this.$el); //undefined
+            console.log(this.$data);  // 可以读到data中的
+        },
+        beforeMount() {
+            console.log("视图模板渲染之前,变量还没有被解析");
+            console.log(this.$el);//{{msg}}中的状态还未被解析,{{msg}}就还还被渲染到页面
+            console.log(this.$data); //获取数据
+        },
+        mounted() {
+            //在这个阶段可以获取视图节点
+            //还可以在这个生命周期,发送ajax
+            console.log("视图模板渲染完毕");
+            console.log(this.$el);//{{msg}}就会被解析渲染到页面
+            console.log(this.$data);//将数据中msg渲染到页面
+            //异步
+        },
+        //在这之前初始化一次
+        //数据新渲染  渲染多次  数据渲染是异步 所以会先打印  console.log(this.$refs.aaa.innerText);打印hello;因为数据渲染之后数据会有变化,所以如果直接打印的话,就会拿不到最新的数据,就要拿
+        beforeUpdate() {
+            //数据更新之前
+            console.log("数据更新之前")
+            this.msg = "哈哈"
+        },
+        updated() {
+            console.log("更新完毕")
+        },
+        beforeDestroy() {
+            console.log("组件销毁之前")
+        },
+        destroyed() {
+            console.log("组件销毁之后")
+        },
+        methods: {
+            test() {
+                //this.$destroy();  //后面的就不会执行了
+                this.msg = "哈哈哈"
+                //在视图渲染之后执行,视图渲染是一个异步的过程
+                this.$nextTick(() => {
+                    console.log(console.log(this.$refs.aaa.innerText));
+                })
+            }
+        },
+    })
+</script>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 属性的绑定 v-bind:  简写是: -->
+        <a v-bind:href="url" :title="'跳转百度'">百度</a>
+        <!-- 属性的 -->
+        <button :disabled="false">点击</button>
+        <button :disabled="true">不点击</button>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            url:"http://www.baidu.com"
+        }
+    })
+</script>

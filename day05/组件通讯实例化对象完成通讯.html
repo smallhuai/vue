@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+        <child2></child2>
+    </div>
+</body>
+
+</html>
+<script>
+    var vm = new Vue();
+    var child = {
+       template: `<div><span v-for="(item) in list">{{item}}</span></div>`,
+        data() {
+            return {
+                list: ""
+            }
+        },
+        mounted() {
+            // 这个是接收参数,回调函数操作参数
+            vm.$on("twoFn", (res) => {
+                console.log(res);
+                this.list = res
+            })
+        },
+    }
+    var child2 = {
+        template: `
+            <div>
+               <h1></h1>     
+            </div>
+        `,
+        data() {
+            return {
+                list: ["昭君", "媚娘"]
+            }
+        },
+        mounted() {
+            vm.$emit("twoFn", this.list)
+        },
+    }
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "hahahh"
+        },
+        methods: {
+            run() {
+                //这个是传参数 $emit
+                vm.$emit("click", this.msg)
+            }
+        },
+        components: {
+            child,
+            child2
+        }
+    })
+</script>

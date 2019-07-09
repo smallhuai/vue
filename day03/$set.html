@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div >
+            {{msg.say}}
+            {{msg.name}}
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    // 受js的限制,vue不能监听到对象的删除和增加,
+    //所以用$set("修改的对象","key","val")来解决这个问题
+    new Vue({
+        el: "#app",
+        data: {
+            msg: { say: "哈哈" }
+        },
+        mounted() {
+            // this.msg.name="光头强"
+            // console.log(this.msg);
+            //打印了msg的对象,并且里面有name="光头强",但是在页面上监听不到对象的删除和增加 
+            this.$set(this.msg,"name","光头强")
+            //页面就会显示这个增加的属性
+        },
+        methods: {
+
+        },
+    })
+</script>

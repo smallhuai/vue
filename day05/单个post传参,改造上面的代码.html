@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <blog v-for="item in blogs" :post=item></blog>
+        <!--将item传参给post参数 -->
+    </div>
+</body>
+
+</html>
+<script>
+  /*  1.但props的参数过多时, 我们只需要定义一个参数, 数据渲染的时候就变成{ { obj.xxx } }
+    2.所以传给这个参数的数据要是一个对象.*/
+        //定义组件,单个props参数
+        Vue.component("blog", {
+            //  模版里面放着{{post.title}}模版里面放着{{post.content}}
+            template: `<div>
+            <h1>{{post.title}}</h1>      
+            <div>{{post.content}}</div>		
+        </div>`,
+            props: ["post"]
+        })
+
+    //父组件,即根组件Vue实例
+    new Vue({
+        el: "#app",
+        data: {
+            blogs: [{
+                id: 1,
+                title: "喜羊羊",
+                content: "1111111"
+            }, {
+                id: 2,
+                title: "灰太狼",
+                content: "222222"
+            }, {
+                id: 3,
+                title: "小灰灰",
+                content: "333333"
+            }]
+        }
+    })
+</script>

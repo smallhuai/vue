@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 指令系统封装了一些功能,通过v-xxx可以在任何位置调用,复用 -->
+    <div id="app">
+        <div v-test="{msg:'拖拽',bg:'blue'}"></div>
+        <div v-test="{msg:'拖拽',bg:'yellow'}"></div>
+        <div v-test="{msg:'拖拽',bg:'skyblue'}"></div>
+        <div v-test="{msg:'拖拽',bg:'pink'}"></div>
+    </div>
+</body>
+
+
+</html>
+<script>
+    //  Vue.directive("test",function (el,binding,vnode) { })
+    // el代表了当前元素 div
+    // bindind  代表传入参数 bindind.value  拿到{msg: "拖拽", bg: "blue"}
+    // vnode 拿当前组件的vnode.context  拿到vue实例也就是this 
+    // 视图调用的时候  v-xxx
+    // 简单的指令
+    // Vue.directive("test",function (el,binding,vnode) { 
+    //     console.log(el);
+    //     console.log(binding);
+    //     console.log(vnode);
+
+    // })
+    // 封装了一个简单的指令
+    Vue.directive("test", function (el, binding, vnode) {
+        el.style.cssText = `width:100px;height:100px;background:${binding.value.bg};position:absolute`;
+        var disX = 0,
+            disY = 0;
+        el.onmousedown = function (e) {
+            disX = e.clientX - el.offsetLeft;
+            disY = e.clientY - el.offsetTop;
+            document.onmousemove = function (e) {
+                el.style.left = e.clientX - disX + "px";
+                el.style.top = e.clientY - disY + "px";
+            }
+            el.onmouseup = function () {
+                console.log(111);
+                el.onmouseup = document.onmousemove = null;
+            }
+        }
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            say: "哈哈哈"
+        },
+        methods: {
+            send() {
+                console.log("ok")
+            }
+        },
+    })
+</script>

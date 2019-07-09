@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        name: <input type="text" v-model="name">
+        say: <textarea name="" id="" cols="30" rows="10" v-model="str" style="resize:none"></textarea>
+        <button @click="LeavMsg">发布留言</button>
+        <ul>
+            <li v-for="(item,index) in nameList" >
+                {{item.name+":"+item.str}}
+                <input type="checkbox" value="" v-model="item.bool">
+                <a href="javasrcipt:;;" @click="del(index)">删除</a>
+            </li>
+        </ul>
+        <button @click="delAll">全删</button>
+    </div>
+</body>
+
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            name: "",
+            str: "",
+            bool:"",
+            nameList: [],
+        },
+
+        methods: {
+            LeavMsg() {
+                // 在获取数据的时候,v-model数据的双向传值,push到某个数组中去的时候,要记得把值赋值给所需要的值,如nameList中要添加name和str,组成一个数组,就要把当前所获取的值this.name和this.str添加赋值给data中的name和str,再push到数据nameList中去
+                this.nameList.push(
+                    { name: this.name, str: this.str,bool:false}
+                )  
+                this.name="";
+                this.str="";    
+            },
+            del(){
+                let arr=[]
+                this.nameList.map((item)=>{
+                    if (!item.bool) {
+                     arr.push(item)   
+                    }
+                })
+                this.nameList=arr;
+                //数组中的删除要用splice            
+            },
+            delAll(){
+                this.nameList=[]
+            },
+        },
+    })
+</script>
